@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "sendgrid": "^5.1.0"
+  }
+}
