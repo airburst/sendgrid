@@ -13,7 +13,7 @@ const sendEmail = (message) => {
         })
             .then(res => {
                 if (res.status === 202) { resolve('OK'); }
-                resolve(res);
+                reject(res);
             })
             .catch(err => reject(err));
     });
@@ -24,21 +24,28 @@ const msg = {
         {
             to: [
                 {
-                    email: 'mark.fairhurst@outlook.com',
+                    email: 'markfa@olmgroup.com',
                     name: 'Mark Fairhurst'
                 }
             ],
-            subject: 'Hello, World!'
+            subject: 'Hello, World!',
+            substitutions: {
+                ':firstname': 'Mark'
+            }
         }
     ],
     from: {
         email: 'mfa@email.fairhursts.net',
         name: 'MFA'
     },
-    'reply_to': {
-        email: 'mfa@email.fairhursts.net',
-        name: 'MFA'
-    },
+    // 'reply_to': {
+    //     email: 'mfa@email.fairhursts.net',
+    //     name: 'MFA'
+    // },
+    categories: [
+        'mfa',
+        'new-user'
+    ],
     subject: 'Hello, World!',
     content: [
         {
@@ -46,17 +53,7 @@ const msg = {
             value: '<html><p>Test email</p></html>'
         }
     ],
-    // sub: {
-    //     ':firstname': ['Mark']
-    // },
-    // filters: {
-    //     templates: {
-    //         settings: {
-    //             enable: 1,
-    //             template_id: '69d0a31e-8792-47af-8277-9a66e1bac83f'
-    //         }
-    //     }
-    // }
+    template_id: '69d0a31e-8792-47af-8277-9a66e1bac83f'
 };
 
 sendEmail(msg)
