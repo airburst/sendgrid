@@ -1,45 +1,64 @@
-// using SendGrid's v3 Node.js Library
-// https://github.com/sendgrid/sendgrid-nodejs
 require('dotenv').config();
-const helper = require('sendgrid').mail;
-const fromEmail = new helper.Email('mfa@fairhursts.net');
-const toEmail = new helper.Email('mark.fairhurst@outlook.com');
-const subject = 'Sending with SendGrid is Fun';
-const content = new helper.Content('text/plain', 'and easy to do anywhere, even with Node.js');
-const mail = new helper.Mail(fromEmail, subject, toEmail, content);
+const fetch = require('node-fetch');
 
-const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-const request = sg.emptyRequest({
-    method: 'POST',
-    path: '/v3/mail/send',
-    body: mail.toJSON()
-});
+const sendEmail = (message) => {
+    return new Promise((resolve, reject) => {
+        fetch('https://api.sendgrid.com/v3/mail/send', {
+            headers: {
+                'Authorization': 'Bearer ' + process.env.SENDGRID_API_KEY,
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(message)
+        })
+            .then(res => {
+                if (res.status === 202) { resolve('OK'); }
+                resolve(res);
+            })
+            .catch(err => reject(err));
+    });
+}
 
-sg.API(request)
-    .then(function (response) {
-        console.log(response.statusCode);
-        console.log(response.body);
-        // console.log(response.headers);
-    })
-    .catch(function (error) { console.log(error.response.statusCode); });
+const msg = {
+    personalizations: [
+        {
+            to: [
+                {
+                    email: 'mark.fairhurst@outlook.com',
+                    name: 'Mark Fairhurst'
+                }
+            ],
+            subject: 'Hello, World!'
+        }
+    ],
+    from: {
+        email: 'mfa@email.fairhursts.net',
+        name: 'MFA'
+    },
+    'reply_to': {
+        email: 'mfa@email.fairhursts.net',
+        name: 'MFA'
+    },
+    subject: 'Hello, World!',
+    content: [
+        {
+            type: 'text/html',
+            value: '<html><p>Test email</p></html>'
+        }
+    ],
+    // sub: {
+    //     ':firstname': ['Mark']
+    // },
+    // filters: {
+    //     templates: {
+    //         settings: {
+    //             enable: 1,
+    //             template_id: '69d0a31e-8792-47af-8277-9a66e1bac83f'
+    //         }
+    //     }
+    // }
+};
 
-
-//   "to": [
-//     "mark"
-//   ],
-//   "sub": {
-//     ":firstname": ["Alice"]
-//   },
-//   "category": [
-//     "Promotions"
-//   ],
-//   "filters": {
-//     "templates": {
-//       "settings": {
-//         "enable": 1,
-//         "template_id": "69d0a31e-8792-47af-8277-9a66e1bac83f"
-//       }
-//     }
-//   }
-// }
-
+sendEmail(msg)
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
