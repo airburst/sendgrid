@@ -3,8 +3,8 @@ const base = require('./base');
 const body = `
     <html>
         <p>Welcome to Mobile Finance Assessments. We have created a new online account for you, which you can access at the link below.</p>
-        <p><a href="#">Devon Council MFA App</a></p>
-        <p>http://text-version-of-link</p>
+        <p><a href="http://links.fairhursts.net/mfa">Devon Council MFA App</a></p>
+        <p>http://links.fairhursts.net/mfa</p>
     </html>
 `;
 

@@ -66,7 +66,7 @@ module.exports = Email;
 
 
 const e = new Email('newUser', { 
-    email: 'markfa@olmgroup.com',
+    email: 'mark.fairhurst@outlook.com',
     firstname: 'Mark',
     surname: 'Fairhurst'
 });
