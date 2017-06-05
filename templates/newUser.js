@@ -1,11 +1,7 @@
 const base = require('./base');
 
 const body = `
-    <html>
-        <p>Welcome to Mobile Finance Assessments. We have created a new online account for you, which you can access at the link below.</p>
-        <p><a href="http://links.fairhursts.net/mfa">Devon Council MFA App</a></p>
-        <p>http://links.fairhursts.net/mfa</p>
-    </html>
+    <p>Welcome to Mobile Finance Assessments. We have created a new online account for you, which you can access by clicking the button below.</p>
 `;
 
 // Overwrite any substitutions and template id
