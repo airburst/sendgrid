@@ -12,7 +12,8 @@ const newUser = Object.assign({}, base, {
             value: body
         }
     ],
-    template_id: '69d0a31e-8792-47af-8277-9a66e1bac83f'
+    template_id: 'f82cc4a0-7956-41ed-a48d-699db357ca35'
+    // template_id: '69d0a31e-8792-47af-8277-9a66e1bac83f'
 });
 
 module.exports = JSON.stringify(newUser);
